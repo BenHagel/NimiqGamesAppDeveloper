@@ -1,0 +1,31 @@
+{
+  "name": "nimiqgamesappdeveloper",
+  "version": "1.0.0",
+  "description": "The environment for developing and testing applications that run on Nimiq Games",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BenHagel/NimiqGamesAppDeveloper.git"
+  },
+  "keywords": [
+    "nimiq",
+    "games",
+    "test",
+    "developer",
+    "gaming",
+    "NET",
+    "NIM"
+  ],
+  "author": "Benjamin Hagel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BenHagel/NimiqGamesAppDeveloper/issues"
+  },
+  "homepage": "https://github.com/BenHagel/NimiqGamesAppDeveloper#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
