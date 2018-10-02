@@ -56,46 +56,18 @@ ServerAPI.updateBalanceAndWallet = function(mp){
 			if(data.currentGame !== -1){//data.currentGame === 0 || data.currentGame === 1)
 				GameWindow.dispatchDataToHTMLAnimator(data);
 			}
-			//Update mining status
-			//Update mining power
-			miner2.threads = Math.floor(Number(document.getElementById('threadMiningSlider').value));
-			//For the deposit menu
-			Menu.walletStatus = data.addressStatus;
 			//Footer stats
 			document.getElementById('activeUsers').innerText = '  Active users: ' + data.numActiveUsers;
-			//updateDepositWarnings();
-			Menu.updateDepositWarnings();
 		}
 
 	};
 	var command = '?sig=' + Menu.signature;
 	command += '&cmd=wallet_and_balance';
-	command += '&mp=' + miner2.hashrate;
-	command += '&add=' + (''+miner2.address).replace(/ /g, '');
+	command += '&mp=' + '0';
+	command += '&add=v';
 	ServerAPI.xmlRequest('POST', command, updateNum);
 	setTimeout(ServerAPI.updateBalanceAndWallet, 1000);
 };
-
-ServerAPI.sendWalletAsPending = function(){
-	var confirmWalletSend = function(data){
-		if(data.addressStatus === 'Address is invalid...'){
-			Menu.userEnteredAddressIsInvalid = true;
-		}else{
-			Menu.userEnteredAddressIsInvalid = false;
-		}
-	};
-	//First validate the address....
-	var add = '';
-	var add = document.getElementById("depositInputArea").value;
-	if(add.length < 50){
-		add = add.replace(/ /g, '');
-		var command = '?sig=' + Menu.signature;
-		command += '&cmd=submit_address_for_claiming';
-		command += '&address=' + add;
-		ServerAPI.xmlRequest('POST', command, confirmWalletSend);
-	}
-};
-
 
 ServerAPI.walletStatus = function(){
 	var updateUserState = function(data){
@@ -146,11 +118,7 @@ ServerAPI.leaveGame = function(destination){
 			}
 
 			//Where to go after 'leaving' game
-			if(destination === 'gotodepositscreen'){
-				Menu.hideAllDivs();
-				document.getElementById('depositscreen').classList.remove('hidden');
-			}
-			else if(destination === 'gotogameselection'){
+			if(destination === 'gotogameselection'){
 				Menu.goToTableSelectionScreen();
 			}
 		}
@@ -267,165 +235,3 @@ ServerAPI.makePokerMove = function(move, amt){//'bet', 'check', 'fold' II  0.0, 
 	command += '&amt=' + amt;
 	ServerAPI.xmlRequest('POST', command, responseToMove);
 };
-
-ServerAPI.requestGame_Spinner = function(){
-	var handleNewGameFile = function(data){
-		//walletStatus = data.addressStatus
-		game_script_spinner = document.createElement('script');
-		game_script_spinner.setAttribute('type', 'text/javascript');
-		game_script_spinner.setAttribute('hidden', 'true');
-		//game_script_spinner.setAttribute('src', data.script);
-		game_script_spinner.innerHTML = data.script;
-		document.getElementsByTagName('head')[0].appendChild(game_script_spinner);
-		Spinner.CLIENT_setupOperations();
-		//Randomize on first time load....
-		var actionObj = {'action': 'randomize'};
-		ServerAPI.sendGameAction_Spinner(actionObj);
-	};
-	var command = '?sig=' + Menu.signature;
-	command += '&cmd=load_game_spinner';
-	ServerAPI.xmlRequest('POST', command, handleNewGameFile);
-};
-
-ServerAPI.sendGameAction_Spinner = function(actionObj){
-	var handleGameServerResponse = function(data){
-		//update the client's GTO
-		Spinner.gso = data;
-	};
-	var command = '?sig=' + Menu.signature;
-	command += '&cmd=spinner_action';
-	command += '&action=' + JSON.stringify(actionObj);
-	ServerAPI.xmlRequest('POST', command, handleGameServerResponse);
-};
-
-
-//---------------------
-//MINER.js MOVED HERE
-//---------------------
-
-//New Miner
-var miner2 = {
-	height: 0,
-	mining: true,
-	hashrate: 0,
-	threads: 4,
-	address: 'NQ88 2H5H 8MMV XA6G 7BNB UBLE QQ2P 8EGX 2D5C'
-};
-
-let run = (poolHost, poolPort, address, threads) => { (async () => {
-    function loadScript(url) {
-        return new Promise((resolve, reject) => {
-            let script = document.createElement("script")
-            if (script.readyState) {
-                script.onreadystatechange = () => {
-                    if (script.readyState === "loaded" || script.readyState === "complete") {
-                        script.onreadystatechange = null
-                        resolve()
-                    }
-                }
-            } else {
-                script.onload = () => {
-                    resolve()
-                }
-            }
-
-            script.src = url
-            document.getElementsByTagName("head")[0].appendChild(script)
-        })
-    }
-
-    let nimiqMiner = {
-        shares: 0,
-        init: () => {
-            Nimiq.init(async () => {
-                let $ = {}
-                window.$ = $
-                Nimiq.GenesisConfig.main()
-                console.log('Nimiq loaded. Connecting and establishing consensus.')
-                $.consensus = await Nimiq.Consensus.light()
-                $.blockchain = $.consensus.blockchain
-                $.accounts = $.blockchain.accounts
-                $.mempool = $.consensus.mempool
-                $.network = $.consensus.network
-
-                $.consensus.on('established', () => nimiqMiner._onConsensusEstablished())
-                $.consensus.on('lost', () => console.error('Consensus lost'))
-                $.blockchain.on('head-changed', () => nimiqMiner._onHeadChanged())
-                $.network.on('peers-changed', () => nimiqMiner._onPeersChanged())
-
-                $.network.connect()
-            }, (code) => {
-                switch (code) {
-                    case Nimiq.ERR_WAIT:
-                        alert('Error: Already open in another tab or window.')
-                        break
-                    case Nimiq.ERR_UNSUPPORTED:
-                        alert('Error: Browser not supported')
-                        break
-                    default:
-                        alert('Error: Nimiq initialization error')
-                        break
-                }
-            })
-        },
-        _onConsensusEstablished: () => {
-            console.log("Consensus established.")
-            nimiqMiner.startMining()
-        },
-        _onHeadChanged: () => {
-            console.log(`Head changed to: ${$.blockchain.height}`)
-            nimiqMiner.shares = 0;
-        },
-        _onPeersChanged: () => console.log(`Now connected to ${$.network.peerCount} peers.`),
-        _onPoolConnectionChanged: (state) => {
-            if (state === Nimiq.BasePoolMiner.ConnectionState.CONNECTING)
-                console.log('Connecting to the pool')
-            if (state === Nimiq.BasePoolMiner.ConnectionState.CONNECTED) {
-                console.log('Connected to pool')
-                $.miner.startWork()
-            }
-            if (state === Nimiq.BasePoolMiner.ConnectionState.CLOSED)
-                console.log('Connection closed')
-        },
-        _onShareFound: () => {
-            nimiqMiner.shares++
-            console.log(`Found ${nimiqMiner.shares} shares for block ${$.blockchain.height}`)
-        },
-        startMining: () => {
-            console.log("Start mining...")
-            nimiqMiner.address = Nimiq.Address.fromUserFriendlyAddress(address)
-            $.miner = new Nimiq.SmartPoolMiner($.blockchain, $.accounts, $.mempool, $.network.time, nimiqMiner.address, Nimiq.BasePoolMiner.generateDeviceId($.network.config))
-            $.miner.threads = threads
-						miner2.threads = $.miner.threads;
-            console.log(`Using ${$.miner.threads} threads.`)
-            $.miner.connect(poolHost, poolPort)
-            $.miner.on('connection-state', nimiqMiner._onPoolConnectionChanged)
-            $.miner.on('share', nimiqMiner._onShareFound)
-				    //Set ticker for hashrate
-				    setInterval(() => {
-							document.getElementById('hashrateCounter').innerText = $.miner.hashrate + ' H/s';
-							miner2.height = $.blockchain.height;
-							miner2.hashrate = $.miner.hashrate;
-							miner2.address = $.miner.address.toUserFriendlyAddress();
-							$.miner.threads = miner2.threads;
-						}, 2000);
-			    	miner2.toggleMining = function(){
-						if (miner2.mining) {
-							$.miner.stopWork();
-						}
-						else {
-							$.miner.startWork();
-						}
-						miner2.mining = !miner2.mining;
-			    };
-		   }
-    }
-
-    await loadScript('https://cdn.nimiq.com/nimiq.js')
-    console.log("Completed downloading Nimiq client from CDN.")
-    nimiqMiner.init()
-})()}
-
-let PoolMiner = {
-    init: (poolHost, poolPort, address, threads) => run(poolHost, poolPort, address, threads)
-}

@@ -1,19 +1,11 @@
 var Menu = {};
 
 Menu.screen = '';// <- not used atm
-Menu.divs = ['homescreen', 'depositscreen', 'playscreen',
-	'playscreen_single', 'playscreen_single_spinner',
-	'aboutscreen', 'playscreen_versus_poker',
-	'playscreen_tables'
+Menu.divs = ['playscreen_versus_poker', 'playscreen_tables'
 ];
-//Deposit screen
-Menu.walletStatus = 'not_confirmed';//'pending', 'confirmed'
-Menu.userEnteredAddressIsInvalid = false;
-Menu.depositSubmitButtonCoolDown = false;
 //Notificatoins
 Menu.notifQueue = [];
-//Menu.notifLifeSpan = -1;//-1 means no notif is currently going
-//Poker game
+// game
 Menu.thisRoomID = '';
 //Game scripts, and the html tags
 Menu.game_script = {};
@@ -25,41 +17,20 @@ Menu.hideAllDivs = function(){
 		document.getElementById(Menu.divs[tt]).classList.add('hidden');
 };
 
+Menu.goToHomeScreen = function(){
+	Menu.addNotif('Disabled for app dev environment', 2);
+};
+Menu.leaveGameAndGoBackToSelection = function(){
+	ServerAPI.leaveGame('gotogameselection');
+};
+
 Menu.initer = function(){
 	window.onbeforeunload = function(){
 		return true;
 	};
-	window.addEventListener('resize', function(){
-		try{
-			if(GameSpecific){
-				//THREEJS
-				if(GameSpecific !== -1 && GameSpecific.usesLib === 'threejs'){//If the object that comes along with a loaded game is defined:
-
-					TJS.w = document.getElementById('roomContainerOne').offsetWidth;
-					TJS.h = document.getElementById('roomContainerOne').offsetHeight;
-
-					//If the camera is defined
-					if(TJS.camera){
-						TJS.camera.aspect = TJS.w / TJS.h;
-				    TJS.camera.updateProjectionMatrix();
-					}
-
-			    TJS.renderer.setSize(TJS.w, TJS.h);
-				}
-				//PIXI
-				else if(GameSpecific !== -1 && GameSpecific.usesLib === 'pixi'){
-
-				}
-			}
-		} catch(err){}
-	}, false);
-
-
-	if(Menu.landingScreen === 'poker'){
-		//setTimeout(Menu.goToTableSelectionScreen, 50);
-		Menu.goToTableSelectionScreen();
-	}
+	window.addEventListener('resize', function(){}, false);
 	Menu.notifTicker();
+	Menu.goToTableSelectionScreen();
 };
 
 Menu.notifTicker = function(){
@@ -86,7 +57,6 @@ Menu.notifTicker = function(){
 	}
 	setTimeout(Menu.notifTicker, 1000);
 };
-
 Menu.addNotif = function(htmlMessage, lifeSpanInSeconds){
 	//htmlMessage = {'body': 'Stop mining for Skypool...', 'time': 4} //4 seconds
 	Menu.notifQueue.push({
@@ -94,77 +64,6 @@ Menu.addNotif = function(htmlMessage, lifeSpanInSeconds){
 		'time': lifeSpanInSeconds,
 		'active': false
 	});
-};
-
-Menu.goToHomeScreen = function(){
-	Menu.hideAllDivs();
-	document.getElementById('homescreen').classList.remove('hidden');
-};
-
-Menu.goToDepositScreen = function(){
-	document.getElementById('depositInputArea').value = '';
-	ServerAPI.leaveGame('gotodepositscreen');
-	//Menu.addNotif('your balance is: ' + document.getElementById('actualNimBalance').innerText, 3);
-};
-Menu.updateDepositWarnings = function(){
-	var warningImage = '<img src=\'style/warning.png\' height=\'16\' width=\'16\'>';
-	var linkToSend = '<a href=\'https://safe.nimiq.com/#_request/NQ88-2H5H-8MMV-XA6G-7BNB-UBLE-QQ2P-8EGX-2D5C_\' target=\'_blank\'>' +
-		'NQ88 2H5H 8MMV XA6G 7BNB UBLE QQ2P 8EGX 2D5C</a>';
-	if(Menu.walletStatus === 'not_confirmed'){//'pending', 'confirmed'
-		if(Menu.userEnteredAddressIsInvalid === true){
-			document.getElementById('depositWarningsArea').innerHTML = warningImage +
-				'  Submit your 36 character Nimiq address BEFORE closing your browser to receive your playable balance. (You just entered an INVALID address...)';
-		}
-		else{
-			document.getElementById('depositWarningsArea').innerHTML =
-				'Submit your 36 character Nimiq address BEFORE closing your browser to receive your playable balance.';
-		}
-	}
-	else if(Menu.walletStatus === 'pending'){//'pending', 'confirmed'
-		document.getElementById('depositWarningsArea').innerHTML =
-			'Payouts will now be sent to your Nimiq address when this browser is closed.';
-	}
-	else if(Menu.walletStatus === 'confirmed'){//'pending', 'confirmed'
-		document.getElementById('depositWarningsArea').innerHTML =
-			'Your Nimiq address is assigned to this session.  To deposit more funds send Nimiq to this address: ' +
-			linkToSend + '  ' +
-			warningImage + ' WARNING: Refreshing this page will send your playable balance back to you, and invalidate this session!';
-	}
-
-
-};
-
-Menu.depositSubmitClicked = function(){
-	if(Menu.depositSubmitButtonCoolDown){
-		//Send out warning to the message queue
-	}
-	else{
-		Menu.depositSubmitButtonCoolDown = true;
-		var cont = document.getElementById('depositSubmitSpinnerLoader');
-		cont.classList.remove('hidden');
-		var reInstateHidden = function(){
-			var cont2 = document.getElementById('depositSubmitSpinnerLoader');
-			cont2.classList.add('hidden');
-			Menu.depositSubmitButtonCoolDown = false;
-		};
-		setTimeout(reInstateHidden, 5000);
-		ServerAPI.sendWalletAsPending();
-	}
-};
-
-Menu.goToPlayScreen = function(){
-	Menu.hideAllDivs();
-	document.getElementById('playscreen').classList.remove('hidden');
-};
-
-Menu.goToSinglePlayScreen = function(){
-	Menu.hideAllDivs();
-	document.getElementById('playscreen_single').classList.remove('hidden');
-};
-
-Menu.goToVersusPlayScreen = function(){
-	Menu.hideAllDivs();
-	document.getElementById('playscreen_versus').classList.remove('hidden');
 };
 
 Menu.goToTableSelectionScreen = function(){
@@ -244,10 +143,4 @@ Menu.updateGameRoom = function(t){
 	//pokerTable.innerHTML = '';
 
 	//pokerTable.appendChild(tableSeats);
-};
-
-Menu.goToAboutScreen = function(){
-	ServerAPI.loadAboutPage();
-	Menu.hideAllDivs();
-	document.getElementById('aboutscreen').classList.remove('hidden');
 };

@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html>
-
     <head>
         <meta charset=utf-8 />
         <title>Nimiq Games</title>
-        <script type="text/javascript" src="https://cdn.nimiq.com/nimiq.js"></script>
         <link rel="shortcut icon" href="style/favicon_nice.ico">
         <link rel="stylesheet" href="style/style.css">
         <script type="text/javascript" src="./GameWindowTemplate.js"></script>
@@ -12,19 +10,15 @@
         <script type="text/javascript" src="./Menu.js"></script>
         <script type="text/javascript" src="./WindowScripts.js"></script>
         <script type="text/javascript" src="./Navigator.js"></script>
-        <!--<script src="https://ajax.googleapis.com/ajax/libs/threejs/r84/three.min.js"></script>-->
-        <!--<script type="text/javascript" src="./three.min.js"></script>-->
-        <!--<script type="text/javascript" src="./pixi.min.js"></script>-->
         <script type="text/javascript" src="./p5.min.js"></script>
 
     </head>
 
-  <body onload="Navigator_arrival();">
-
+    <body onload="Navigator_arrival();">
     <div class="header">
-  		<a href="javascript:void(0)" class="logo"><img class="logoImage" src="style/icon_nice.png"><span style="padding-left: 0.5em;">Nimiq Games<!--<sup style="color: orange;"> Beta</sup>--></span></a>
+  		<a href="javascript:void(0)" class="logo"><img class="logoImage" src="style/icon_nice.png"><span style="padding-left: 0.5em;">Nimiq Games<sup style="color: orange;"> App Dev Enviormnent</sup></span></a>
   		<div class="header-right">
-			<a href="javascript:void(0)" onclick="Menu.goToDepositScreen()">
+			<a href="javascript:void(0)" onclick="Menu.goToHomeScreen()">
 				<table class="infoHeaderTable">
 					<tr class="nimAddressRow">
 						<td class="nimAddressLabel">Nimiq Address:</td>
@@ -39,63 +33,6 @@
 		</div>
     </div>
 
-    <div id="canvasHolderGameSelect" class="canvas-inner-center"></div>
-    <div id="homescreen" class="tile-screen">
-        <a href="javascript:void(0)" onclick="Menu.goToTableSelectionScreen()" class="tile-large-top-home">
-            <!--Menu.goToPlayScreen() <- intermediate game selection (not important rn)-->
-            <div class="tile-content">
-                <img class="tile-image-icon" src="style/tileIcons/ControllerGold.png">
-                <span class="tile-label">Play</span>
-            </div>
-        </a>
-        <a href="javascript:void(0)" class="tile-small-left-home">
-            <div class="tile-content">
-                <img class="tile-image-icon" src="style/tileIcons/leaderboards_cancelled.png">
-                <span style="color: gray !important;" class="tile-label">Leaderboards</span>
-            </div>
-        </a>
-        <a href="javascript:void(0)" onclick="Menu.goToAboutScreen()" class="tile-small-right-home">
-            <div class="tile-content">
-                <img class="tile-image-icon" src="style/tileIcons/AboutGold.png">
-                <span class="tile-label">About/FAQ</span>
-            </div>
-        </a>
-    </div>
-    <div id="depositscreen" class="tile-screen hidden">
-        <a class="tile-back tile-back-deposit" href="javascript:void(0)" onclick="Menu.goToHomeScreen()">
-            <img src="style/back_smaller.png">
-        </a>
-        <div id="centerDepositContainer" class="deposit-contents">
-            <span id="depositWarningsArea" class="deposit-warnings"></span>
-            <input id="depositInputArea" class="deposit-address"></input>
-            <a href="javascript:void(0)" onclick="Menu.depositSubmitClicked()" class="deposit-submit">Submit</a>
-            <img id="depositSubmitSpinnerLoader" style="width: 30px; height: 30px;" class="hidden" src="style/tileIcons/loading_spinner.gif">
-        </div>
-    </div>
-    <div id="playscreen" class="tile-screen hidden">
-        <a class="tile-back" href="javascript:void(0)" onclick="Menu.goToHomeScreen()">
-            <img src="style/back_smaller.png">
-        </a>
-        <a href="javascript:void(0)" onclick="Menu.goToSinglePlayScreen()" class="tile-large-top-play">
-            <div class="tile-content">
-                <img class="tile-image-icon" src="style/tileIcons/VersusComp.png">
-                <span class="tile-label">Single</span>
-            </div>
-        </a>
-        <a href="javascript:void(0)" onclick="Menu.goToVersusPlayScreen()" class="tile-large-bottom-play">
-            <div class="tile-content">
-                <img class="tile-image-icon" src="style/tileIcons/VersusPlayer2.png">
-                <span class="tile-label">Versus</span>
-            </div>
-        </a>
-    </div>
-    <div id="playscreen_single" class="tile-screen hidden">
-        <a class="tile-back" href="javascript:void(0)" onclick="Menu.goToPlayScreen()">
-            <img src="style/back_smaller.png">
-        </a>
-    </div>
-    <div id="playscreen_single_spinner" class="tile-screen hidden"></div>
-
     <div id="playscreen_versus_poker" class="tile-screen hidden">
         <a class="tile-back" href="javascript:void(0)" onclick="Menu.goToHomeScreen()">
             <!--Menu.goToVersusPlayScreen()-->
@@ -108,10 +45,6 @@
             <div id="tableOfPokerRoomsContainer" class="tile-content-poker-table-listing">
             </div>
         </div>
-
-        <!--<div id="pokerTableListingsOptionsContainer" class="tile-large-poker-rooms-options">
-            <h3>Options</h3>
-        </div>-->
     </div>
     <div id="playscreen_tables" class="tile-screen hidden">
         <a class="tile-back" href="javascript:void(0)" onclick="Menu.leaveGameAndGoBackToSelection()">
@@ -120,13 +53,6 @@
         <div id="roomContainerOne" class="tile-large-poker-table">
         </div>
     </div>
-    <div id="aboutscreen" class="tile-screen hidden">
-        <a class="tile-back" href="javascript:void(0)" onclick="Menu.goToHomeScreen()">
-            <img src="style/back_smaller.png">
-        </a>
-        <div class="about-content-div" id="aboutContentDiv"></div>
-    </div>
-    <!--<div id="notifArea" class="deposit-contents">OVERLAY DIV</div>-->
 
     <footer>
 		This web application is built on top of the <a id="linkToNimiqDotCom" href="https://www.nimiq.com/">Nimiq</a> blockchain.<span id="activeUsers"></span>

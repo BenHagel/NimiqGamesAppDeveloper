@@ -19,7 +19,7 @@ html{
     overflow:hidden;
 }
 body {
-	background: linear-gradient(135deg, #0000b4, #4b00a5, #650098, #800080);
+	background-image: linear-gradient(to right bottom, #003881, #0055a1, #0074c2, #0093e1, #00b4ff);
 	width: 100%;
 	min-height: 100%;
 	margin: 0;
@@ -37,6 +37,8 @@ textarea {
 	text-rendering: optimizeLegibility;
 	text-align: center;
 }
+
+
 
 
 

@@ -45,7 +45,7 @@ GameSpecific.myGameInP5JS = function(p){
 			console.log('BAD LOAD >:(');
 		};
 		//Load an image
-		img = p.loadImage(GameSpecific.gameResURL + 'bunnyboy.jpg', gg, bb);
+		//img = p.loadImage(GameSpecific.gameResURL + 'bunnyboy.jpg', gg, bb);
 		//console.log(GameSpecific.gameResURL + 'bunnyboy.jpg');
 	}
 	p.draw = function() {
@@ -59,10 +59,10 @@ GameSpecific.myGameInP5JS = function(p){
 			p.translate(p.mouseX, p.mouseY);
 			p.rect(0, 0, 30, 30);
 		p.pop();
-		if(img){
-			p.image(img, 50, 50);
+		//if(img){
+			//p.image(img, 50, 50);
 			//console.log(JSON.stringify(img));
-		}
+		//}
 		//When it is false, remove
 		if(!Menu.graphicalJSLibrary_Animating){
 			try{P5J.instance.remove();}catch(err){console.log(err);}

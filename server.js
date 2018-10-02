@@ -136,7 +136,7 @@ GameHelper.requestJoinGame = function(session, tid){
 			}
 		}
 	}
-
+	
 	if(gameTypeIndex !== -1){
 		return {'gameScript': '' + ServerHelper.gameScripts[gameTypeIndex].script,
 				'joinResponse': GameHelpers[gameTypeIndex].requestJoinGame(session, tid, GameHelper.games[gameTypeIndex]),
@@ -252,6 +252,7 @@ function handleApi(req, res, id){
 		t.addressStatus = ServerHelper.sessions[id].nimAddressStatus;
 		t.numActiveUsers = ServerHelper.sessions.length;
 		t.currentGame = ServerHelper.sessions[id].currentGame;
+		//console.log('')
 		if(ServerHelper.sessions[id].currentGame !== -1) t.gameState = GameHelpers[t.currentGame].getUpdateOfRoom(
 			ServerHelper.sessions[id],
 			ServerHelper.sessions[id].currentGameState.tableID + '',

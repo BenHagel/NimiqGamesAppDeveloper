@@ -38,7 +38,7 @@ function createNewBigButtonRoom(){
 function requestJoinGame(session, gameID, games){
 	//If the attribute "error" of this object is equal to: "", then the user
 	//has reached the basic requirements to join the game
-	var joinGameResponse = GameMaster._requestJoinGame(session, gameID, games, 1);//(1) for big button id, (0) for poker, etc...
+	var joinGameResponse = GameMaster._requestJoinGame(session, gameID, games, 0);//0 is for MyGame
 	//~~~~~
 	//TODO
 	//~~~~~
@@ -48,7 +48,7 @@ function requestJoinGame(session, gameID, games){
 function getUpdateOfRoom(session, gameID, games){
 	//'pov' is now the object that is returned to the user (once a second) and is the point of view of whoever is asking for an update -
 	//so don't include information in this object that you don't want to be seen by opponents
-	var pov = GameMaster._getUpdateOfRoom(session, gameID, games, 1);//(1) for big button id, (0) for poker, etc...
+	var pov = GameMaster._getUpdateOfRoom(session, gameID, games, 0);//0 is for MyGame
 	//~~~~~
 	//TODO
 	//~~~~~
