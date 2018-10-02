@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset=utf-8 />
+      <title>Nimiq Games</title>
+      <link rel="shortcut icon" href="../style/favicon_nice.ico">
+      <link rel="stylesheet" href="../style/style.css">
+    </head>
+
+    <body onload="Navigator_arrival();">
+      <div class="header">
+    		<a href="javascript:void(0)" class="logo"><img class="logoImage" src="../style/icon_nice.png"><span style="padding-left: 0.5em;">Nimiq Games<sup style="color: orange;"> Documentation</sup></span></a>
+    		<div class="header-right">
+    			<a href="javascript:void(0)" onclick="Menu.goToHomeScreen()">
+    				<table class="infoHeaderTable">
+    					<tr class="nimAddressRow">
+    						<td class="nimAddressLabel">Nimiq Address:</td>
+    						<td class="nimAddressValue" id="actualNimAddressValue">----</td>
+    					</tr>
+    					<tr class="balanceRow">
+    						<td class="balanceLabel">Playable Balance:<sup>+</sup></td>
+    						<td class="balanceValue" id="actualNimBalance">0</td>
+    					</tr>
+    				</table>
+    			</a>
+  		  </div>
+      </div>
+
+      <div id="playscreen_versus_poker" class="tile-screen hidden">
+          <div class="tile-large-documentation-area">
+              <div id="tableOfPokerRoomsContainer" class="tile-content-poker-table-listing">
+              </div>
+          </div>
+      </div>
+
+    <footer>
+  		This web application is built on top of the <a id="linkToNimiqDotCom" href="https://www.nimiq.com/">Nimiq</a> blockchain.<span id="activeUsers"></span>
+  		<img class="miningGif" href="javascript:void(0)" src="../style/miner2.gif">
+  		<span id="hashrateCounter" class="hashrate"></span>
+    </footer>
+  </body>
+</html>

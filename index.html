@@ -1,66 +1,67 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset=utf-8 />
-        <title>Nimiq Games</title>
-        <link rel="shortcut icon" href="style/favicon_nice.ico">
-        <link rel="stylesheet" href="style/style.css">
-        <script type="text/javascript" src="./GameWindowTemplate.js"></script>
-        <script type="text/javascript" src="./serverAPI.js"></script>
-        <script type="text/javascript" src="./Menu.js"></script>
-        <script type="text/javascript" src="./WindowScripts.js"></script>
-        <script type="text/javascript" src="./Navigator.js"></script>
-        <script type="text/javascript" src="./p5.min.js"></script>
-
+      <meta charset=utf-8 />
+      <title>Nimiq Games</title>
+      <link rel="shortcut icon" href="style/favicon_nice.ico">
+      <link rel="stylesheet" href="style/style.css">
+      <script type="text/javascript" src="./GameWindowTemplate.js"></script>
+      <script type="text/javascript" src="./serverAPI.js"></script>
+      <script type="text/javascript" src="./Menu.js"></script>
+      <script type="text/javascript" src="./WindowScripts.js"></script>
+      <script type="text/javascript" src="./Navigator.js"></script>
+      <script type="text/javascript" src="./p5.min.js"></script>
     </head>
 
     <body onload="Navigator_arrival();">
-    <div class="header">
-  		<a href="javascript:void(0)" class="logo"><img class="logoImage" src="style/icon_nice.png"><span style="padding-left: 0.5em;">Nimiq Games<sup style="color: orange;"> App Dev Enviormnent</sup></span></a>
-  		<div class="header-right">
-			<a href="javascript:void(0)" onclick="Menu.goToHomeScreen()">
-				<table class="infoHeaderTable">
-					<tr class="nimAddressRow">
-						<td class="nimAddressLabel">Nimiq Address:</td>
-						<td class="nimAddressValue" id="actualNimAddressValue">----</td>
-					</tr>
-					<tr class="balanceRow">
-						<td class="balanceLabel">Playable Balance:<sup>+</sup></td>
-						<td class="balanceValue" id="actualNimBalance">0</td>
-					</tr>
-				</table>
-			</a>
-		</div>
-    </div>
+      <div class="header">
+    		<a href="javascript:void(0)" class="logo"><img class="logoImage" src="style/icon_nice.png"><span style="padding-left: 0.5em;">Nimiq Games<sup style="color: orange;"> App Dev Enviormnent</sup></span></a>
+    		<div class="header-right">
+    			<a href="javascript:void(0)" onclick="Menu.goToHomeScreen()">
+    				<table class="infoHeaderTable">
+    					<tr class="nimAddressRow">
+    						<td class="nimAddressLabel">Nimiq Address:</td>
+    						<td class="nimAddressValue" id="actualNimAddressValue">----</td>
+    					</tr>
+    					<tr class="balanceRow">
+    						<td class="balanceLabel">Playable Balance:<sup>+</sup></td>
+    						<td class="balanceValue" id="actualNimBalance">0</td>
+    					</tr>
+    				</table>
+    			</a>
+  		  </div>
+      </div>
 
-    <div id="playscreen_versus_poker" class="tile-screen hidden">
-        <a class="tile-back" href="javascript:void(0)" onclick="Menu.goToHomeScreen()">
-            <!--Menu.goToVersusPlayScreen()-->
-            <img src="style/back_smaller.png">
-        </a>
-        <a class="tile-refresh" href="javascript:void(0)" onclick="ServerAPI.requestAvailableGames()">
-            <img src="style/tileIcons/refresh.png" style="width: 99px;height: 99px;">
-        </a>
-        <div class="tile-large-game-play-area">
-            <div id="tableOfPokerRoomsContainer" class="tile-content-poker-table-listing">
-            </div>
-        </div>
-    </div>
-    <div id="playscreen_tables" class="tile-screen hidden">
-        <a class="tile-back" href="javascript:void(0)" onclick="Menu.leaveGameAndGoBackToSelection()">
-            <img src="style/back_smaller.png">
-        </a>
-        <div id="roomContainerOne" class="tile-large-poker-table">
-        </div>
-    </div>
+      <div id="playscreen_versus_poker" class="tile-screen hidden">
+          <a class="tile-back" href="javascript:void(0)" onclick="Menu.goToHomeScreen()">
+              <!--Menu.goToVersusPlayScreen()-->
+              <img src="style/back_smaller.png">
+          </a>
+          <a class="tile-refresh" href="javascript:void(0)" onclick="ServerAPI.requestAvailableGames()">
+              <img src="style/tileIcons/refresh.png" style="width: 99px;height: 99px;">
+          </a>
+          <a id="documentationLink" target="_blank" href="documentation/index_documentation.html" class="documentation-link">
+            <img src="style/closed.png" style="width: 99px;height: 99px;">
+          </a>
+          <div class="tile-large-game-play-area">
+              <div id="tableOfPokerRoomsContainer" class="tile-content-poker-table-listing">
+              </div>
+          </div>
+      </div>
+      <div id="playscreen_tables" class="tile-screen hidden">
+          <a class="tile-back" href="javascript:void(0)" onclick="Menu.leaveGameAndGoBackToSelection()">
+              <img src="style/back_smaller.png">
+          </a>
+          <div id="roomContainerOne" class="tile-large-poker-table">
+          </div>
+      </div>
 
     <footer>
-		This web application is built on top of the <a id="linkToNimiqDotCom" href="https://www.nimiq.com/">Nimiq</a> blockchain.<span id="activeUsers"></span>
-		<img class="miningGif" href="javascript:void(0)" onclick="ServerAPI.updateTotalOnlineUsers()" src="style/miner2.gif">
-		<span id="hashrateCounter" class="hashrate"></span>
-    <!--<span id="mining-toggle-button" class="mining-toggle-on" onclick="miner2.toggleMining()"></span>-->
-    <input id="threadMiningSlider" class="mining-threads-count-slider" type="range" min="0" max="8" value="4">
+  		This web application is built on top of the <a id="linkToNimiqDotCom" href="https://www.nimiq.com/">Nimiq</a> blockchain.<span id="activeUsers"></span>
+  		<img class="miningGif" href="javascript:void(0)" src="style/miner2.gif">
+  		<span id="hashrateCounter" class="hashrate"></span>
+      <!--<span id="mining-toggle-button" class="mining-toggle-on" onclick="miner2.toggleMining()"></span>-->
+      <input id="threadMiningSlider" class="mining-threads-count-slider" type="range" min="0" max="8" value="4">
     </footer>
-
   </body>
 </html>
