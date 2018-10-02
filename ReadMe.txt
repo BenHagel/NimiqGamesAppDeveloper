@@ -4,10 +4,13 @@ Published by: Benjamin Hagel on October 2, 2018
 -------------------
 https://github.com/BenHagel/NimiqGamesAppDeveloper
 
+Video Tutorials from Nimiq Games YouTube channel:
+https://www.youtube.com/channel/UCKZN4qSPE-IyJ3fu5-B-JNA/
+
 
 How to setup the server:
 -------------------
-The local server is just a NodeJS application that uses the "express" framework.  To start the server, go to the root directory of the repo and assuming you have Node installed, type: 
+The local server is just a NodeJS application that uses the "express" framework.  To start the server, go to the root directory of the repo and assuming you have Node installed, type:
 "node server"
 
 If there are errors, you may not have the library, so type:
