@@ -1,0 +1,1 @@
+{"startTime":1538447729414,"lastActive":1538447729414,"lastActiveUserRequest":1538448029610,"signature":"nq15747813310629133u1538447729414","nimAddress":"- - -","nimAddressStatus":"-?-?-","isMobileUser":false,"playableBalance":11054,"currentGame":-1,"currentGameState":{}}

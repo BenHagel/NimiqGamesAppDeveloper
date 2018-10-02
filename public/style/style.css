@@ -1,0 +1,527 @@
+html{
+	background-color: black;
+	font-family: 'Roboto-Light', sans-serif;
+	text-rendering: optimizeLegibility;
+	color: white;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+}
+.hidden{
+    transition: all 1s ease-in-out !important;
+    opacity:0;
+    max-height:0;
+    max-width:0;
+    display:none;
+    padding:0 !important;
+    margin:0 !important;
+    border:none !important;
+    overflow:hidden;
+}
+body {
+	background: linear-gradient(135deg, #0000b4, #4b00a5, #650098, #800080);
+	width: 100%;
+	min-height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+input {
+	font-size: 36px;
+	font-family: 'Roboto-Light', sans-serif;
+	text-rendering: optimizeLegibility;
+}
+textarea {
+	font-size: 14px;
+	font-family: 'Roboto-Light', sans-serif;
+	text-rendering: optimizeLegibility;
+	text-align: center;
+}
+
+
+
+.tile-screen {
+	padding: 0.5em 0.5em 0.5em 0.5em;
+	width: 100%;
+	height: calc(100vh - 141px);
+}
+.tile-back {
+	width: 153px;//calc(100vw - 20px);
+	height: 99px;//50%;
+	float: left;
+	z-index: 3;
+	transition: 0.3s;
+	opacity: 0.8;
+}
+.tile-refresh {
+	max-width: 153px;//calc(100vw - 20px);
+	max-height: 153px;//50%;
+	position: absolute;
+	top: 180px;
+	left: 10px;
+	z-index: 3;
+	transition: 0.2s;
+	opacity: 0.8;
+}
+.tile-back:hover {
+	opacity: 1;
+}
+.tile-refresh:hover{
+	opacity: 1;
+}
+.tile-content {
+	text-align: center;
+
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+
+	-webkit-box-orient: vertical;
+	-moz-box-orient: vertical;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+
+	align-items: center;
+	justify-content: center;
+	vertical-align: middle;
+	height: 100%;
+	color: rgb(253, 293, 18);
+}
+.tile-image-icon {
+	max-width: 70%;
+	max-height: 70%;
+}
+.tile-label {
+	font-size: 32px;
+	padding-top: 5px;
+}
+
+
+
+.tile-large-top-home {
+	border: 2px rgb(253, 293, 18) solid;
+	width: calc(100vw - 44px);
+	height: calc((100vh - 160px)*0.5);
+	position: absolute;
+	top: 100px;
+	left: 20px;
+	transition: 0.1s;
+	box-shadow: 3px 3px 3px #000000;
+}
+.tile-large-top-home:hover {
+	top: 103px;
+	left: 23px;
+	box-shadow: 1px 1px 1px #000000;
+}
+
+
+
+.tile-small-left-home {
+	border: 2px gray solid;
+	width: calc((100vw - 60px)*0.5);
+	height: calc((100vh - 160px)*0.5);
+	position: absolute;
+	bottom: 40px;
+	left: 20px;
+	transition: 0.1s;
+	box-shadow: 3px 3px 3px #111111;
+}
+.tile-small-left-home:hover {
+	//bottom: 37px;
+	//left: 23px;
+	//box-shadow: 1px 1px 1px #000000;
+}
+
+
+
+.tile-small-right-home {
+	border: 2px rgb(253, 293, 18) solid;
+	width: calc((100vw - 60px)*0.5);
+	height: calc((100vh - 160px)*0.5);
+	position: absolute;
+	bottom: 40px;
+	right: 20px;
+	transition: 0.1s;
+	box-shadow: 3px 3px 3px #000000;
+}
+.tile-small-right-home:hover{
+	bottom: 37px;
+	right: 23px;
+	box-shadow: 1px 1px 1px #000000;
+}
+
+
+
+
+
+
+
+
+.about-content-div{
+	overflow: scroll;
+	overflow-x: hidden;
+	width: calc(100vw - 65px - 153px);
+	max-height: 80vh;
+	position: absolute;
+	top: 100px;
+	left: 193px;
+}
+
+
+
+
+.deposit-contents{
+	text-align: center;
+
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+
+	-webkit-box-orient: vertical;
+	-moz-box-orient: vertical;
+	-webkit-flex-direction: column;
+	-ms-flex-direction: column;
+	flex-direction: column;
+
+	align-items: center;
+	justify-content: center;
+	vertical-align: middle;
+	height: 100%;
+}
+
+.tile-back-deposit{
+	position: absolute;
+}
+.deposit-warnings{
+	padding: 20px 20px 20px 20px;
+	width: 80vw;
+}
+.deposit-address{
+	width: 80vw;
+	text-align: center;
+}
+.deposit-submit{
+	padding: 20px 20px 20px 20px;
+	font-size: 34px;
+	color: rgb(255,255,255) !important;
+ }
+  .deposit-submit:hover{
+	  color: rgb(215,215,215) !important;
+  }
+ .deposit-submit:active{
+ 	color: black !important;
+  }
+
+
+
+
+.tile-large-top-play {
+	border: 2px rgb(253, 293, 18) solid;
+	width: calc(100vw - 65px - 153px);
+	height: calc((100vh - 160px)*0.5);
+	position: absolute;
+	top: 100px;
+	left: 193px;
+	transition: 0.1s;
+	box-shadow: 3px 3px 3px #000000;
+}
+.tile-large-top-play:hover {
+	top: 103px;
+	left: 196px;
+	box-shadow: 1px 1px 1px #000000;
+}
+
+
+.tile-large-bottom-play {
+	border: 2px rgb(253, 293, 18) solid;
+	width: calc(100vw - 44px);
+	height: calc((100vh - 160px)*0.5);
+	position: absolute;
+	bottom: 40px;
+	left: 20px;
+	transition: 0.1s;
+	box-shadow: 3px 3px 3px #000000;
+}
+.tile-large-bottom-play:hover {
+	bottom: 43px;
+	left: 23px;
+	box-shadow: 1px 1px 1px #000000;
+}
+
+
+
+
+
+.tile-large-poker-rooms {
+	border: 2px white solid;
+	width: calc(100vw - 153px - 20px - 20px);
+	height: calc(100vh - 150px);
+	position: absolute;
+	top: 100px;
+	left: 153px;
+	//box-shadow: 3px 3px 3px #000000;
+}
+.tile-content-poker-table-listing{
+	//border: 1px black solid;
+	width: 100%;
+	height: 100%;
+	color: rgb(253, 293, 18);
+	overflow: scroll;
+	overflow-x: hidden;
+}
+.table-for-poker-table-listings {
+	width: 100%;
+	color: white !important;
+	text-align: left;
+}
+.entry-for-poker-table{
+	color: white !important;
+}
+.entry-for-poker-table:hover{
+	color: green !important;
+	background-color rgba(100, 100, 100, 0.3) !important;
+}
+
+
+.tile-large-poker-table{
+	border: none;//2px white solid;
+	width: calc(100vw - 193px - 20px - 20px) !important;
+	height: calc(90vh - 90px) !important;
+	position: absolute;
+	top: 100px;
+	left: 153px;
+}
+
+
+
+.tile-large-poker-rooms-options {
+	border: 2px white solid;
+	width: calc(100vw - 153px - 20px - 20px - 70vw);
+	height: calc(100vh - 150px);
+	position: absolute;
+	top: 100px;
+	left: calc(153px + calc(70vw - 193px - 20px - 20px) + 20px);
+	right: 20px;
+	//box-shadow: 3px 3px 3px #000000;
+}
+
+
+
+
+
+.poker-table-table{
+	border: 1px black solid;
+	width: 100%;
+	color: white !important;
+	text-align: left;
+}
+.poker-table-action-on{
+	background-color: red;
+}
+
+
+.tile-large-game-play-area{
+	border: 2px white solid;
+	width: calc(100vw - 193px - 20px - 20px);
+	height: calc(100vh - 150px);
+	position: absolute;
+	top: 100px;
+	left: 153px;
+}
+
+
+
+
+
+
+#notifArea{
+	position: fixed; /* Sit on top of the page content */
+	//display: none; /* Hidden by default */
+	width: 100%; /* Full width (cover the whole page) */
+	height: 15%; /* Full height (cover the whole page) */
+	top: 85%;//calc(90vh);//0;
+	left: 0;//calc(50vw);
+	right: 0;
+	bottom: calc(100vh);
+	font-size: 20px;
+	font-family: 'Roboto-Light', sans-serif;
+	text-rendering: optimizeLegibility;
+	background-color: rgba(0,0,0,0.7); /* Black background with opacity */
+	z-index: 2;
+	-webkit-animation: notifMove 0.35s; /* Safari 4.0 - 8.0 */
+	animation: notifMove 0.35s;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes notifMove {
+	from {height: 0%;}
+	to {height: 15%;}
+}
+
+@keyframes notifMove {
+	from {height: 0%;}
+	to {height: 15%;}
+}
+
+
+
+
+.logoImage {
+	width: 69px;
+	height: 69px;
+	box-shadow: 3px 3px 3px #000000, 3px 3px 3px #000000;
+}
+.miningGif {
+	width: 17px;//8%;
+	height: 15px;//8%;
+	padding-left: 8px;
+}
+.hashrate {
+	//float: right;
+	padding-left: 7px;
+}
+
+.profileImage {
+	border-radius: 50%;
+	width: 69px;
+	height: 69px;
+}
+
+.header {
+	padding: 10px 20px 10px 20px;
+	min-height: 73px;//16px;
+	overflow: hidden;
+	max-height: 73px;
+}
+
+.infoHeaderTable {
+	color: white;
+	border: 1px solid;
+
+	height: 75px;
+}
+.infoHeaderTable:hover {
+	color: hotpink;
+	border: 1px solid;
+
+	height: 75px;
+}
+
+/* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
+.header a.logo {
+  font-size: 25px;
+  color: white;
+}
+
+
+/* Float the link section to the right */
+.header-right {
+	float: right;
+}
+
+.nimAddressRow {
+	vertical-align: text-top;
+}
+.balanceRow {
+	vertical-align: text-bottom;
+}
+.nimAddressLabel {
+	vertical-align: text-top;
+	width: 180px;
+	align: left;
+}
+.balanceLabel {
+	vertical-align: text-bottom;
+	width: 180px;
+	align: left;
+
+}
+.nimAddressValue {
+	text-align: right;
+}
+.balanceValue {
+	text-align: right;
+}
+
+
+
+//Links
+a {
+	color: hotpink;
+	text-decoration: none;
+}
+a:link {
+	color: hotpink;
+	text-decoration: none;
+}
+a:visited {
+	color: hotpink;
+	text-decoration: none;
+}
+a:hover {
+	color: hotpink;
+	text-decoration: none;
+}
+a:active {
+	color: hotpink;
+	text-decoration: none;
+}
+
+//Address for depositing
+.nimiqAddressSubmitTextArea{
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	text-align: center;
+	font-size: 28;
+	background-color: black;
+}
+
+//Canvas
+.canvas-inner-center {
+	margin: 0;
+	padding: 0;
+	//border: 1px solid red;
+}
+
+#linkToNimiqDotCom{
+	color: hotpink;
+	text-decoration: none;
+}
+
+#rpsButtonID{
+
+}
+
+.mining-toggle-on{
+	color: green !important;
+}
+
+.mining-toggle-off{
+	color: red !important;
+}
+
+.mining-threads-count-slider{
+	width: 100px;
+	height: 10px;
+	position: absolute;
+}
+
+footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	//border: 1px solid red;
+	overflow: hidden;
+	min-height: 11px;
+	max-height: 11px;
+	width: 100%;
+	padding-bottom: 1em;
+	padding-top: 0.2em;
+	text-align: center;
+}
