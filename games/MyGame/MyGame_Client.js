@@ -59,10 +59,7 @@ GameSpecific.myGameInP5JS = function(p){
 			p.translate(p.mouseX, p.mouseY);
 			p.rect(0, 0, 30, 30);
 		p.pop();
-		//if(img){
-			//p.image(img, 50, 50);
-			//console.log(JSON.stringify(img));
-		//}
+		
 		//When it is false, remove
 		if(!Menu.graphicalJSLibrary_Animating){
 			try{P5J.instance.remove();}catch(err){console.log(err);}
