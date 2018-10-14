@@ -1,7 +1,7 @@
 //Must be called 'GameSpecific'
 var GameSpecific = {};
 //If undefined, will assume false
-GameSpecific.usesLib = 'p5js';//'pixi';//could be:   'threejs', 'pixi', 'p5js', 'other'
+GameSpecific.usesLib = 'other';//'pixi';//could be:   'threejs', 'pixi', 'p5js', 'other'
 GameSpecific.gameName = 'bigbutton';
 GameSpecific.gameResURL = ServerAPI.baseURL_game + '?g=' + GameSpecific.gameName + '&n=';
 
@@ -15,11 +15,16 @@ GameSpecific.gameResURL = ServerAPI.baseURL_game + '?g=' + GameSpecific.gameName
 GameSpecific.setupGame = function(data){
 	GameSpecific.gso = {};
 	GameSpecific.gso.theClickCounter = -1;
+		var w = document.getElementById('roomContainerOne');
+		var area = document.createElement('button');
+		area.setAttribute('id', 'gameButton');
+
+		w.appendChild(area);
 	//P5J.goodToRemoveCanvas = false;
-	P5J.instance = new p5(
+	/*P5J.instance = new p5(
     GameSpecific.myGameInP5JS,
     'roomContainerOne'
-  );
+  );*/
 };
 
 //The function that contains your game
@@ -59,7 +64,7 @@ GameSpecific.myGameInP5JS = function(p){
 			p.translate(p.mouseX, p.mouseY);
 			p.rect(0, 0, 30, 30);
 		p.pop();
-		
+
 		//When it is false, remove
 		if(!Menu.graphicalJSLibrary_Animating){
 			try{P5J.instance.remove();}catch(err){console.log(err);}
@@ -117,5 +122,9 @@ GameSpecific.receiveResponseFromServerAfterMakingMove = function(data){
 //and only when 'GameSpecific.usesLib' === 'other'
 //'data' variable is from server
 GameSpecific.animateHTML = function(data){
-	//gameArea.innerHTML = inf;
+	var w = document.getElementById('roomContainerOne');
+	var qq = document.getElementById('gameButton');
+	qq.innerText = "asss";
+	console.log('asdfsdffdsa');
+
 };
