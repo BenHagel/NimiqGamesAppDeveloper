@@ -203,35 +203,3 @@ ServerAPI.makeMove = function(move, callback){//move =
 	command += '&move=' + JSON.stringify(move);
 	ServerAPI.xmlRequest('POST', command, responseToMove);
 };
-
-ServerAPI.updatePokerTableStatus = function(){
-	var updateTable = function(data){
-		if(data.error === ''){
-			Menu.updatePokerTable(data.currentTable);
-		}
-		else{
-			console.log('Error joining room!: ' + data.error);
-			//Menu.updateGameTableListings(data.newTables);
-		}
-	};
-	var command = '?sig=' + Menu.signature;
-	command += '&cmd=update_poker_table';
-	command += '&tblid=' + Menu.pokerTableID;
-	ServerAPI.xmlRequest('POST', command, updateTable);
-	if(Menu.pokerTableID !== '') setTimeout(ServerAPI.updatePokerTableStatus, 1300);
-};
-
-ServerAPI.makePokerMove = function(move, amt){//'bet', 'check', 'fold' II  0.0, 45.0
-	var responseToMove = function(data){
-		if(data.error === ''){
-
-		}
-		console.log(data.error + ': ' + data.answer);
-	};
-	var command = '?sig=' + Menu.signature;
-	command += '&cmd=make_poker_move';
-	command += '&tableid=' + Menu.pokerTableID;
-	command += '&move=' + move;
-	command += '&amt=' + amt;
-	ServerAPI.xmlRequest('POST', command, responseToMove);
-};

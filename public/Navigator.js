@@ -1,1 +1,1 @@
-function Navigator_arrival() {Menu.isMobileUser=false;Menu.signature='nq3702537462147917u1539485463987';document.getElementById('activeUsers').innerText = '  Active users: ' + 2;ServerAPI.updateBalanceAndWallet();Menu.landingScreen='normal';Menu.initer();}
+function Navigator_arrival() {Menu.isMobileUser=false;Menu.signature='nq7749505955906364u1539563035700';document.getElementById('activeUsers').innerText = '  Active users: ' + 2;ServerAPI.updateBalanceAndWallet();Menu.landingScreen='normal';Menu.initer();}

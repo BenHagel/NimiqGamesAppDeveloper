@@ -2,12 +2,14 @@ const fs = require('fs');
 var express = require('express');
 var app = express();
 var path = require('path');
-
-//Server game scripts add the helpers to the "GameHelpers" array (ADDING NEW GAME STEP 1)
+//(ADDING NEW GAME STEP 1)
+//Server game scripts add the helpers to the "GameHelpers" array
 //This game always at index = 0 (id is 0)
 var MyGameHelper = require('./games/MyGame/MyGame_Server.js');
+var MyBubblesHelper = require('./games/MyBubbles/MyBubbles_Server.js');
 var GameHelpers = [];
 GameHelpers.push(MyGameHelper);
+GameHelpers.push(MyBubblesHelper);
 console.log('Loaded ' + GameHelpers.length + ' GameHelper objects!');
 
 //Game master helps with game operations
@@ -42,6 +44,11 @@ ServerHelper.loadGameScripts = function(){
 	gameOne.name = 'MyGame';
 	gameOne.script = '' + fs.readFileSync(path.join(__dirname + '/games/MyGame/MyGame_Client.js'));
 	ServerHelper.gameScripts.push(gameOne);
+	//1 = MyBubbles
+	var gameTwo = {};
+	gameTwo.name = 'MyBubbles';
+	gameTwo.script = '' + fs.readFileSync(path.join(__dirname + '/games/MyBubbles/MyBubbles_Client.js'));
+	ServerHelper.gameScripts.push(gameTwo);
 };
 
 ServerHelper.validSignature = function(sig){
@@ -95,6 +102,7 @@ var GameHelper = {};
 //(ADDING NEW GAME STEP 4) add server_whateverthegamecalled.txt to /server/ to store the game states
 GameHelper.games = [];
 GameHelper.games.push([]);//MyGame
+GameHelper.games.push([]);//MyBubbles
 console.log('Loaded ' + GameHelper.games.length + ' game types!');
 GameHelper.loadGamesInformation = function(){
 	//Load big button
@@ -102,8 +110,17 @@ GameHelper.loadGamesInformation = function(){
 	var entries = t.split('\n');
 	for(var i = 0;i < entries.length;i++){
 		if(entries[i].length > 10){
-			//FORMAT: {'gameid':0, 'gameguts':{########}}
 			GameHelper.games[0].push(JSON.parse(entries[i]));
+		}
+	}
+};
+GameHelper.loadGamesInformation = function(){
+	//Load my bubbles
+	var t = '' + fs.readFileSync(path.join(__dirname + '/server/games_mybubbles.txt'));
+	var entries = t.split('\n');
+	for(var i = 0;i < entries.length;i++){
+		if(entries[i].length > 10){
+			GameHelper.games[1].push(JSON.parse(entries[i]));
 		}
 	}
 };
@@ -136,7 +153,7 @@ GameHelper.requestJoinGame = function(session, tid){
 			}
 		}
 	}
-	
+
 	if(gameTypeIndex !== -1){
 		return {'gameScript': '' + ServerHelper.gameScripts[gameTypeIndex].script,
 				'joinResponse': GameHelpers[gameTypeIndex].requestJoinGame(session, tid, GameHelper.games[gameTypeIndex]),
@@ -363,7 +380,8 @@ periodicallySaveSessionInfoToDisc();
 console.log('Session ticker running! (once every 5 seconds)');
 
 
-
+//(ADDING NEW GAME STEP 9) periodically write to disc - make sure
+//the .txt files match wherever you write to
 //Periodically check on poker games and save them to the disc
 function periodicallySaveAndUpdateGamesToDisc(){
 	//UPDATE poker session here
@@ -371,16 +389,20 @@ function periodicallySaveAndUpdateGamesToDisc(){
 		GameHelpers[p].updateGame(ServerHelper.sessions, GameHelper.games[p]);
 	}
 
-	//(ADDING NEW GAME STEP 9) periodically write to disc - make sure
-	//the .txt files match wherever you write to
 	//Write big button sessions to disc
 	var gameInfoMyGame = '';
 	for(var i = 0;i < GameHelper.games[0].length;i++){
 		gameInfoMyGame += JSON.stringify(GameHelper.games[0][i]) + '\n';
 	}
+	//Write my bubbles to disc
+	var gameInfoMyBubbles = '';
+	for(var i = 0;i < GameHelper.games[1].length;i++){
+		gameInfoMyBubbles += JSON.stringify(GameHelper.games[1][i]) + '\n';
+	}
 	setTimeout(
 		function(){
 			fs.writeFile('./server/games_mygame.txt', gameInfoMyGame, function(err){});
+			fs.writeFile('./server/games_mybubbles.txt', gameInfoMyBubbles, function(err){});
 			periodicallySaveAndUpdateGamesToDisc();
 		}, 1000);
 }
