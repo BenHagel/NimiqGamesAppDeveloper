@@ -7,9 +7,11 @@ var path = require('path');
 //This game always at index = 0 (id is 0)
 var MyGameHelper = require('./games/MyGame/MyGame_Server.js');
 var MyBubblesHelper = require('./games/MyBubbles/MyBubbles_Server.js');
+var SpaceBoyHelper = require('./games/SpaceBoy/SpaceBoy_Server.js');
 var GameHelpers = [];
 GameHelpers.push(MyGameHelper);
 GameHelpers.push(MyBubblesHelper);
+GameHelpers.push(SpaceBoyHelper);
 console.log('Loaded ' + GameHelpers.length + ' GameHelper objects!');
 
 //Game master helps with game operations
@@ -49,6 +51,11 @@ ServerHelper.loadGameScripts = function(){
 	gameTwo.name = 'MyBubbles';
 	gameTwo.script = '' + fs.readFileSync(path.join(__dirname + '/games/MyBubbles/MyBubbles_Client.js'));
 	ServerHelper.gameScripts.push(gameTwo);
+	//2 = Space Boy
+	var gameThree = {};
+	gameThree.name = 'SpaceBoy';
+	gameThree.script = '' + fs.readFileSync(path.join(__dirname + '/games/SpaceBoy/SpaceBoy_Client.js'));
+	ServerHelper.gameScripts.push(gameThree);
 };
 
 ServerHelper.validSignature = function(sig){
@@ -103,6 +110,7 @@ var GameHelper = {};
 GameHelper.games = [];
 GameHelper.games.push([]);//MyGame
 GameHelper.games.push([]);//MyBubbles
+GameHelper.games.push([]);//SpaceBoy
 console.log('Loaded ' + GameHelper.games.length + ' game types!');
 GameHelper.loadGamesInformation = function(){
 	//Load big button
@@ -113,14 +121,20 @@ GameHelper.loadGamesInformation = function(){
 			GameHelper.games[0].push(JSON.parse(entries[i]));
 		}
 	}
-};
-GameHelper.loadGamesInformation = function(){
 	//Load my bubbles
 	var t = '' + fs.readFileSync(path.join(__dirname + '/server/games_mybubbles.txt'));
 	var entries = t.split('\n');
 	for(var i = 0;i < entries.length;i++){
 		if(entries[i].length > 10){
 			GameHelper.games[1].push(JSON.parse(entries[i]));
+		}
+	}
+	//Load space boy
+	var t = '' + fs.readFileSync(path.join(__dirname + '/server/games_spaceboy.txt'));
+	var entries = t.split('\n');
+	for(var i = 0;i < entries.length;i++){
+		if(entries[i].length > 10){
+			GameHelper.games[2].push(JSON.parse(entries[i]));
 		}
 	}
 };
@@ -399,10 +413,16 @@ function periodicallySaveAndUpdateGamesToDisc(){
 	for(var i = 0;i < GameHelper.games[1].length;i++){
 		gameInfoMyBubbles += JSON.stringify(GameHelper.games[1][i]) + '\n';
 	}
+	//Write spcae boy to disc
+	var gameInfoSpaceBoy = '';
+	for(var i = 0;i < GameHelper.games[2].length;i++){
+		gameInfoSpaceBoy += JSON.stringify(GameHelper.games[2][i]) + '\n';
+	}
 	setTimeout(
 		function(){
 			fs.writeFile('./server/games_mygame.txt', gameInfoMyGame, function(err){});
 			fs.writeFile('./server/games_mybubbles.txt', gameInfoMyBubbles, function(err){});
+			fs.writeFile('./server/games_spaceboy.txt', gameInfoSpaceBoy, function(err){});
 			periodicallySaveAndUpdateGamesToDisc();
 		}, 1000);
 }

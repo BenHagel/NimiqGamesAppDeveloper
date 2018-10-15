@@ -24,11 +24,11 @@ function updateGame(sessions, games){
 function createNewRoom(){
 	var newRoom = GameMaster._createNewRoom(
 		false, //is this game to be pinned at the top of the games listing
-		'Bubble Forum',//name to be displayed
+		'Space Boy',//name to be displayed
 		100, //the maximum number of players
 		1, //the minimum buyin in nim sats (10n)
 		false, //mobile compatible?
-		'Post your words in a bubble.' //desc.
+		'MMORPG island based flying game.' //desc.
 	);
 	return newRoom;
 }
@@ -36,7 +36,7 @@ function createNewRoom(){
 function requestJoinGame(session, gameID, games){
 	//If the attribute "error" of this object is equal to: "", then the user
 	//has reached the basic requirements to join the game
-	var joinGameResponse = GameMaster._requestJoinGame(session, gameID, games, 1);//0 is for MyGame
+	var joinGameResponse = GameMaster._requestJoinGame(session, gameID, games, 2);//0 is for MyGame
 	//~~~~~
 	//TODO
 	//~~~~~
@@ -46,7 +46,7 @@ function requestJoinGame(session, gameID, games){
 function getUpdateOfRoom(session, gameID, games){
 	//'pov' is now the object that is returned to the user (once a second) and is the point of view of whoever is asking for an update -
 	//so don't include information in this object that you don't want to be seen by opponents
-	var pov = GameMaster._getUpdateOfRoom(session, gameID, games, 1);//0 is for MyGame, //1 is for MyBubbles
+	var pov = GameMaster._getUpdateOfRoom(session, gameID, games, 2);//0 is for MyGame, //1 is for MyBubbles
 	//~~~~~
 	//TODO
 	//~~~~~
@@ -66,8 +66,8 @@ function requestRemovePlayerFromGame(session, games){
 
 function makeMove(signature, gameID, move, games){
 	var legit = GameMaster._makeMove(signature, gameID, move, games);
-	console.log('move:');
-	console.log(move);
+	//console.log('move:');
+	//console.log(move);
 	//~~~~~
 	//TODO
 	//~~~~~

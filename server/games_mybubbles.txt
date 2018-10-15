@@ -1,1 +1,1 @@
-{"pinned":true,"game":"Bubble Forum","players":[{"stack":1,"seatID":1087,"signature":"nq7749505955906364u1539563035700","nimAddress":"- - -","nimAddressStatus":"-?-?-"}],"maxPlayers":5000,"buyin":1,"mobile":false,"counter":1218,"desc":"Post your words in a bubble.","tableID":"t1539561533522t6186683855826944","clickCount":12}
+{"pinned":false,"game":"Bubble Forum","players":[],"maxPlayers":5000,"buyin":1,"mobile":false,"counter":14499,"desc":"Post your words in a bubble.","tableID":"t1539617323491t34951001928287995","clickCount":0}

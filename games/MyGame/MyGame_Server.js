@@ -23,7 +23,7 @@ function createNewBigButtonRoom(){
 	var newRoom = GameMaster._createNewRoom(
 		true, //is this game to be pinned at the top of the games listing
 		'Big Button',//name to be displayed
-		5000, //the maximum number of players
+		100, //the maximum number of players
 		10, //the minimum buyin in nim sats (10n)
 		false, //mobile compatible?
 		'Click the button, vote on future colours, win if you\'re right.' //desc.
