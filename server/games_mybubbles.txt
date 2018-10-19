@@ -1,1 +1,1 @@
-{"pinned":false,"game":"Bubble Forum","players":[],"maxPlayers":5000,"buyin":1,"mobile":false,"counter":14499,"desc":"Post your words in a bubble.","tableID":"t1539617323491t34951001928287995","clickCount":0}
+{"pinned":false,"game":"Bubble Forum","players":[],"maxPlayers":5000,"buyin":1,"mobile":false,"counter":37048,"desc":"Post your words in a bubble.","tableID":"t1539617323491t34951001928287995","clickCount":0}

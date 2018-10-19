@@ -117,6 +117,11 @@ GameSpecific.receiveResponseFromServerAfterMakingMove = function(data){
 	//console.log(JSON.stringify(data));
 };
 
+//This function is called when the player leaves the games
+//used to clean up stray html elements
+GameSpecific.leaveGameRemoveObjects = function(){
+};
+
 //This function only called once a second,
 //and only when 'GameSpecific.usesLib' === 'other'
 //'data' variable is from server

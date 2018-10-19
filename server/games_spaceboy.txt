@@ -1,1 +1,1 @@
-{"pinned":false,"game":"Space Boy","players":[{"stack":1,"seatID":14332,"signature":"nq625197906411433u1539631643577","nimAddress":"- - -","nimAddressStatus":"-?-?-"}],"maxPlayers":5000,"buyin":1,"mobile":false,"counter":14522,"desc":"MMORPG island based flying game.","tableID":"t1539617077934t6791676039624488","clickCount":6}
+{"pinned":false,"game":"Space Boy","players":[],"maxPlayers":5000,"buyin":1,"mobile":false,"counter":37069,"desc":"MMORPG island based flying game.","tableID":"t1539617077934t6791676039624488","clickCount":24}

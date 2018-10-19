@@ -89,9 +89,10 @@ ServerAPI.loadAboutPage = function(){
 
 ServerAPI.leaveGame = function(destination){
 	var receiveGameEnd = function(data){
-		if(data.st === -1){//if left succesfully
+		if(data.st === -1){//if left succesfully (this is the server's
+							//interpretation of the session's current game)
 			Menu.pokerTableID = '';
-
+			GameSpecific.leaveGameRemoveObjects();
 			//Stop animation
 			Menu.graphicalJSLibrary_Animating = false;
 			//Determine if tag with game code exists, and if it does, remove it
