@@ -11,6 +11,7 @@ GameSpecific.gameResURL = ServerAPI.baseURL_game + '?g=' + GameSpecific.gameName
 //
 var postButtonImg = null;
 var textInput = null;
+var posts = 0;
 
 //Must be called "GameSpecific.setupGame"
 //Called before 'p.setup()'
@@ -45,14 +46,19 @@ GameSpecific.myGameInP5JS = function(p){
 		var bb = function(){console.log('BAD LOAD >:(');};
 		//Load an image
 		postButtonImg = p.loadImage(GameSpecific.gameResURL + 'post.png', gg, bb);
+
+		//load dom
+		textInput = p.createInput();
+		textInput.position(20, 185);
 	}
 	p.draw = function() {
-    p.background(0);
+    	p.background(0);
 		if(lDown) x--;
 		if(rDown) x++;
-    p.fill(255);
-    p.rect(x, y, 50, 50);
+	    p.fill(255);
+	    p.rect(x, y, 50, 50);
 		p.text(GameSpecific.gso.theClickCounter, 300, 40);
+		p.text("posts: " + posts, 300, 80);
 		p.push();
 			p.translate(p.mouseX, p.mouseY);
 			p.ellipse(0, 0, )
@@ -106,6 +112,7 @@ GameSpecific.myGameInP5JS = function(p){
 //Update
 GameSpecific.receiveNewGameStateData = function(data){
 	//GameSpecific.gso.theClickCounter = data.gameState.currentTable.cc;
+	posts = data.gameState.currentTable.po;
 };
 
 //This function is called when the player requests a move to the server,
@@ -113,7 +120,7 @@ GameSpecific.receiveNewGameStateData = function(data){
 //function, if you dont need the user's game to be updated as soon as
 //they make a move
 GameSpecific.receiveResponseFromServerAfterMakingMove = function(data){
-	//GameSpecific.receiveNewGameStateData(data);
+	GameSpecific.receiveNewGameStateData(data);
 	//console.log(JSON.stringify(data));
 };
 

@@ -11,6 +11,7 @@ function updateGame(sessions, games){
 	if(games.length < 1){
 		var newBubblesRoom = createNewRoom();
 		newBubblesRoom.clickCount = 0;
+		newBubblesRoom.posts = [];
 		games.push(newBubblesRoom);
 	}
 	else{
@@ -23,7 +24,7 @@ function updateGame(sessions, games){
 //Middle function here 'createNewRoom()' for breakdown of the parameters
 function createNewRoom(){
 	var newRoom = GameMaster._createNewRoom(
-		false, //is this game to be pinned at the top of the games listing
+		true, //is this game to be pinned at the top of the games listing
 		'Bubble Forum',//name to be displayed
 		100, //the maximum number of players
 		1, //the minimum buyin in nim sats (10n)
@@ -52,7 +53,9 @@ function getUpdateOfRoom(session, gameID, games){
 	//~~~~~
 	if(pov.error === ''){
 		pov.currentTable.cc = games[pov.gameIndex].clickCount;
+		pov.currentTable.po = games[pov.gameIndex].posts.length;
 	}
+
 	return pov;
 }
 
